@@ -372,7 +372,7 @@ void xa_parse_extract_dialog_options (XArchive *archive,Extract_dialog_data *dia
 				gtk_widget_set_sensitive (Stop_button,TRUE);
 				gtk_label_set_text(GTK_LABEL(total_label),_("Extracting files from archive,please wait..."));
 			}
-			g_print ("%s\n",archive->passwd);
+			//g_print ("%s\n",archive->passwd);
 			(*archive->extract)(archive,names);
 		}
 	}

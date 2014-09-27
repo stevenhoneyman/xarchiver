@@ -175,7 +175,7 @@ static void xa_read_desktop_directories(GtkListStore *liststore,const gchar *dir
 	GSList *app_exe = NULL;
 	GtkTreeIter iter;
 
-	filename = g_strconcat(dirname,"applications",NULL);
+	filename = g_build_path ("/",dirname,"applications",NULL);
 	dir = opendir(filename);
 
 	if (dir == NULL)
@@ -262,7 +262,7 @@ static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,
 		if (app_icon == NULL)
 			app_icon = "";
 		*app_icon_list = g_slist_prepend(*app_icon_list,gtk_icon_theme_load_icon(icon_theme,app_icon,40,0,NULL));
-		g_io_channel_close(file);	
+		g_io_channel_shutdown (file, TRUE, NULL);
 		return;
 	}
 	if (app_name != NULL)
@@ -280,7 +280,7 @@ static void xa_parse_desktop_files(GSList **app_name_list,GSList **app_exe_list,
 		g_free(app_icon);
 		app_icon = NULL;
 	}
-	g_io_channel_close(file);	
+	g_io_channel_shutdown (file, TRUE, NULL);
 }
 
 static void xa_open_with_dialog_selection_changed (GtkTreeSelection *selection,Open_with_data *data)

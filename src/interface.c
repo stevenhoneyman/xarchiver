@@ -310,12 +310,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	gtk_widget_show (tmp_image);
 	gtk_image_menu_item_set_image (GTK_IMAGE_MENU_ITEM (help1),tmp_image);
 
-	/*
-	donate = gtk_image_menu_item_new_with_mnemonic (_("_Donate"));
-	gtk_widget_show (donate);
-	gtk_container_add (GTK_CONTAINER (menuitem4_menu),donate);
-	*/
-	
 	about1 = gtk_image_menu_item_new_from_stock ("gtk-about",accel_group);
 	gtk_widget_show (about1);
 	gtk_container_add (GTK_CONTAINER (menuitem4_menu),about1);
@@ -546,7 +540,6 @@ void xa_create_main_window (GtkWidget *xa_main_window,gboolean show_location,gbo
 	g_signal_connect ((gpointer) multi_extract_menu,"activate",G_CALLBACK (xa_show_multi_extract_dialog),NULL);
 	g_signal_connect ((gpointer) help1,"activate",G_CALLBACK (xa_show_help),NULL);
 	g_signal_connect ((gpointer) about1,"activate",G_CALLBACK (xa_about),NULL);
-	g_signal_connect ((gpointer) donate,"activate",G_CALLBACK (xa_show_donate_page_on_the_web),NULL);
 
 	g_signal_connect ((gpointer) New_button,	"clicked",G_CALLBACK (xa_new_archive),NULL);
 	g_signal_connect ((gpointer) Open_button,	"clicked",G_CALLBACK (xa_open_archive),NULL);
@@ -833,10 +826,6 @@ gchar *xa_create_password_dialog(XArchive *archive)
 	return password;
 }
 
-void xa_show_donate_page_on_the_web(GtkMenuItem *item,gpointer data)
-{
-	xa_activate_link (NULL,"http://xarchiver.xfce.org/contribute.html",NULL);
-}
 
 void xa_create_popup_menu()
 {
@@ -1508,9 +1497,9 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 	static Progress_bar_data *pb = NULL;
 	gchar *text = NULL,*markup;
 
-	if (pb)
+	if (pb != NULL)
 		return pb;
-		
+	
 	pb = g_new0(Progress_bar_data,1);
 	pb->progress_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
 	gtk_window_set_title (GTK_WINDOW (pb->progress_window),_("Xarchiver"));
@@ -1571,7 +1560,7 @@ Progress_bar_data *xa_create_progress_bar(gboolean flag,XArchive *archive)
 	pb->file_label = gtk_label_new("");
 	gtk_misc_set_alignment (GTK_MISC (pb->file_label),0,0.5);
 	gtk_box_pack_start (GTK_BOX (vbox2),pb->file_label,FALSE,FALSE,12);
-	if (flag)
+	if (flag == TRUE)
 	{
 		gtk_progress_bar_set_pulse_step(GTK_PROGRESS_BAR(pb->progressbar1),0.033);
 		

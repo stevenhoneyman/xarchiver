@@ -1704,7 +1704,7 @@ void drag_data_get (GtkWidget *widget,GdkDragContext *dc,GtkSelectionData *selec
 		{
 			if (archive->passwd == NULL)
 			{
-				archive->passwd = xa_create_password_dialog(NULL);
+				archive->passwd = xa_create_password_dialog(archive);
 				if ( archive->passwd == NULL)
 				{
 					gtk_drag_finish (dc,FALSE,FALSE,t);
@@ -2713,9 +2713,12 @@ void xa_view_from_popupmenu(GtkMenuItem *item,gpointer data)
 
 	if (entry->is_encrypted)
 	{
-		archive[idx]->passwd = xa_create_password_dialog(archive[idx]);
 		if (archive[idx]->passwd == NULL)
-			return;
+		{
+			archive[idx]->passwd = xa_create_password_dialog(archive[idx]);
+			if (archive[idx]->passwd == NULL)
+				return;
+		}
 	}
 	filename = g_strconcat(archive[idx]->tmp,"/",entry->filename,NULL);
 	if (g_file_test(filename,G_FILE_TEST_EXISTS))
@@ -2779,8 +2782,12 @@ void xa_treeview_row_activated(GtkTreeView *tree_view,GtkTreePath *path,GtkTreeV
 	{
 		if (entry->is_encrypted)
 		{
-		  if (archive->passwd == NULL)
-		     return;
+			if (archive->passwd == NULL)
+			{
+				archive->passwd = xa_create_password_dialog(archive);
+				if (archive->passwd == NULL)
+					return;
+			}
 		}
 	   	if (archive->extraction_path)
 	   	{

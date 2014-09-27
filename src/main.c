@@ -331,16 +331,12 @@ void xa_set_available_archivers()
 	delete[XARCHIVETYPE_7ZIP]  = &xa_7zip_delete;
 	delete[XARCHIVETYPE_ARJ]  = &xa_arj_delete;
 	delete[XARCHIVETYPE_DEB]  = 0;
-	delete[XARCHIVETYPE_BZIP2]  = 0;
-	delete[XARCHIVETYPE_GZIP]  = 0;
-	delete[XARCHIVETYPE_LZMA]  = 0;
-	delete[XARCHIVETYPE_XZ]  = 0;
-	delete[XARCHIVETYPE_RAR]  = delete[XARCHIVETYPE_RAR5]  = &xa_rar_delete;
+	delete[XARCHIVETYPE_BZIP2]  = delete[XARCHIVETYPE_GZIP] = delete[XARCHIVETYPE_LZMA] = delete[XARCHIVETYPE_XZ] = delete[XARCHIVETYPE_LZOP] = &xa_tar_delete;
+	delete[XARCHIVETYPE_RAR]  = delete[XARCHIVETYPE_RAR5] = &xa_rar_delete;
 	delete[XARCHIVETYPE_RPM]  = 0;
 	delete[XARCHIVETYPE_TAR]  = delete[XARCHIVETYPE_TAR_BZ2] = delete[XARCHIVETYPE_TAR_GZ] = delete[XARCHIVETYPE_TAR_LZMA] = delete[XARCHIVETYPE_TAR_XZ] = delete[XARCHIVETYPE_TAR_LZOP] = &xa_tar_delete;
 	delete[XARCHIVETYPE_ZIP] = &xa_zip_delete;
 	delete[XARCHIVETYPE_LHA] = &xa_lha_delete;
-	delete[XARCHIVETYPE_LZOP] = 0;
 	
 	
 	add[0]  = 0;

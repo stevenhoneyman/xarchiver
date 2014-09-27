@@ -211,13 +211,13 @@ int main (int argc, char **argv)
 				g_free(_current_dir);
 				GSList *files = NULL;
 				_current_dir = g_path_get_basename(add_files);
-				files = g_slist_append(files,xa_escape_filename(_current_dir,"$'`\"\\!?* ()[]&|:;<>#"));
+				files = g_slist_append(files,g_strdup(_current_dir));
 				g_free(_current_dir);
 				g_free(add_files);
 				for (x = 1; x< argc; x++)
 				{
 					_current_dir = g_path_get_basename(argv[x]);
-					files = g_slist_append(files,xa_escape_filename(_current_dir,"$'`\"\\!?* ()[]&|:;<>#"));
+					files = g_slist_append(files,g_strdup(_current_dir));
 					g_free (_current_dir);
 				}
 				xa_execute_add_commands(archive,files,NULL);

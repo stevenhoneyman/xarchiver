@@ -1140,12 +1140,12 @@ XArchiveType xa_detect_archive_type (gchar *filename)
 		xx = XARCHIVETYPE_RPM;
 	else if (memcmp ( magic,"\x37\x7a\xbc\xaf\x27\x1c",6) == 0)
 		xx = XARCHIVETYPE_7ZIP;
-	else if (isTar ( dummy_ptr))
-		xx = XARCHIVETYPE_TAR;
 	else if (isLha ( dummy_ptr))
 		xx = XARCHIVETYPE_LHA;
 	else if (memcmp ( magic,"!<arch>\ndebian",14) == 0)
 		xx = XARCHIVETYPE_DEB;
+	else if (isTar ( dummy_ptr))
+		xx = XARCHIVETYPE_TAR;
 	fclose (dummy_ptr);
 	return xx;
 }

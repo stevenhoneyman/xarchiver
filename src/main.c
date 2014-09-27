@@ -282,7 +282,12 @@ done:	g_list_free (ArchiveSuffix);
 		/* This to open the archive from the command line */
 		if ( argc == 2 )
 		{
-			gchar *dummy = g_strdup(argv[1]);
+			gchar *dummy;
+			if (g_str_has_prefix(argv[1], "file://") == TRUE)
+				dummy = g_strdup(argv[1]+6);
+			else
+				dummy = g_strdup(argv[1]);
+
 			current_open_directory = g_path_get_dirname (dummy);
 			if (strcmp(current_open_directory,"..") == 0)
 			{

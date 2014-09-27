@@ -1,5 +1,8 @@
 Xarchiver changelog:
 
+27/09/14 - 0.5.3.1 (UNOFFICIAL):
+		- Fully patched with the various disto fixes etc. See git log for details.
+
 09/02/14 - 0.5.3:
 		- Full RAR5 support
 		- Full XZ, TAR.XZ support
